@@ -1,0 +1,26 @@
+server:
+  port: 8090
+spring:
+  cloud:
+    function:
+      definition: myConsumer
+    stream:
+      bindings:
+        myConsumer-in-0:
+          #topic -> app/type/[store_id]
+          destination: kirke/foodcart/>
+#          #The presence of "group" tells the binder to follow the "consumer group" pattern
+#          group: nonexclusive
+#          consumer:
+#            #Concurrency can be used with a consumer group (non-exclusive queue) to process events in multiple threads
+#            concurrency: 5
+      binders:
+        local-solace:
+          type: solace
+          environment:
+            solace:
+              java:
+                host: tcp://localhost:55554
+                msgVpn: default
+                clientUsername: default
+                clientPassword: default
