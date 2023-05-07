@@ -3,9 +3,11 @@ package ch.wesr.kirke.server.repository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -36,12 +38,16 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Map<LocalDateTime, String> findByTargetId(UUID targetId) {
+    public Map<UUID, Map<LocalDateTime, String>> findByTargetId(UUID targetId) {
+        Map<UUID, Map<LocalDateTime, String>> targetMap =  new LinkedHashMap<>();
 
         if (eventMap.containsKey(targetId)) {
-           return eventMap.get(targetId);
+            Map<LocalDateTime, String> localDateTimeStringMap = eventMap.get(targetId);
+            targetMap.put(targetId, localDateTimeStringMap);
+        } else {
+            //FIXME Exception Handling für TargetId nicht gefunden
+            throw new RuntimeException("TargetId [" + targetId + "] not found");
         }
-        //FIXME Exception Handling für TargetId nicht gefunden
-        throw new RuntimeException("TargetId [" + targetId + "] not found");
+        return targetMap;
     }
 }

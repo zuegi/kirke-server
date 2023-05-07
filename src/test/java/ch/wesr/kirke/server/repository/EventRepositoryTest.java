@@ -4,9 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,10 +27,14 @@ class EventRepositoryTest {
         FoodCartEventTestHelper.ProductSelectedEvent productSelectedEvent = FoodCartEventTestHelper.createProductSelectedEvent(foodCartId, productId, 2);
         eventRepository.save(foodCartId, productSelectedEvent.toString());
 
+        UUID productTwoId = UUID.randomUUID();
+        FoodCartEventTestHelper.ProductSelectedEvent productTwoSelectedEvent = FoodCartEventTestHelper.createProductSelectedEvent(foodCartId, productTwoId, 2);
+        eventRepository.save(foodCartId, productTwoSelectedEvent.toString());
 
-        Map<LocalDateTime, String> byTargetId = eventRepository.findByTargetId(foodCartId);
+        Map<UUID, Map<LocalDateTime, String>> byTargetId = eventRepository.findByTargetId(foodCartId);
 
         Assertions.assertThat(byTargetId).isNotEmpty();
+        // FIXME hier die Tests erweitern und klären, dass die Events in der korrekten Reihenfolg ausgegeben werden.
 
     }
 

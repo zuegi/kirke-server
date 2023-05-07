@@ -3,17 +3,14 @@ server:
 spring:
   cloud:
     function:
-      definition: myConsumer
+      definition: myConsumer;targetId
     stream:
       bindings:
         myConsumer-in-0:
           #topic -> app/type/[store_id]
-          destination: kirke/foodcart/>
-#          #The presence of "group" tells the binder to follow the "consumer group" pattern
-#          group: nonexclusive
-#          consumer:
-#            #Concurrency can be used with a consumer group (non-exclusive queue) to process events in multiple threads
-#            concurrency: 5
+          destination: kirke/foodcart/*/aggregate
+        targetId-in-0:
+          destination: kirke/foodcart/*/request
       binders:
         local-solace:
           type: solace
