@@ -8,11 +8,11 @@
         <version>2.7.11</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>ch.wesr.solace</groupId>
-    <artifactId>kirke-eventsourcing-server</artifactId>
+    <groupId>ch.wesr.kirke</groupId>
+    <artifactId>kirke-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>solace-demo</name>
-    <description>solace-demo</description>
+    <name>kirke-server</name>
+    <description>kirke-server</description>
     <properties>
         <java.version>19</java.version>
         <maven.compiler.source>19</maven.compiler.source>
